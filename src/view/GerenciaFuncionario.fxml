@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FuncionarioController">
+   <children>
+      <Pane prefHeight="800.0" prefWidth="800.0">
+         <children>
+            <TableView fx:id="tabelaFun" layoutX="20.0" layoutY="14.0" prefHeight="776.0" prefWidth="642.0">
+              <columns>
+                <TableColumn fx:id="nomeCol" prefWidth="177.0" text="Nome" />
+                <TableColumn fx:id="cpfCol" prefWidth="103.0" text="CPF" />
+                  <TableColumn fx:id="salCol" prefWidth="107.0" text="Salário Base" />
+                  <TableColumn fx:id="numCol" prefWidth="92.0" text="N°" />
+                  <TableColumn fx:id="horcCol" prefWidth="69.0" text="Hora C." />
+                  <TableColumn fx:id="horsCol" prefWidth="93.0" text="Hora S." />
+              </columns>
+            </TableView>
+            <Button layoutX="679.0" layoutY="153.0" mnemonicParsing="false" onAction="#cadastrarFuncionario" text="Cadastrar Novo" />
+            <Button layoutX="701.0" layoutY="264.0" mnemonicParsing="false" onAction="#deletarSelecionado" text="Deletar" />
+            <Button layoutX="697.0" layoutY="101.0" mnemonicParsing="false" onAction="#atualizarLista" text="Atualizar" />
+            <Button layoutX="694.0" layoutY="208.0" mnemonicParsing="false" onAction="#promoverSelecionado" text="Promover" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

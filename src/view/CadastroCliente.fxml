@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="558.0" prefWidth="321.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CadastroClienteController">
+   <children>
+      <VBox layoutX="64.0" layoutY="66.0" prefHeight="358.0" prefWidth="193.0">
+         <children>
+            <Label prefHeight="30.0" prefWidth="188.0" text="Nome:">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="nomeText" />
+            <Label prefHeight="37.0" prefWidth="193.0" text="CPF (Pessoa Física):">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="cpfText" prefHeight="25.0" prefWidth="178.0" />
+            <Label prefHeight="35.0" prefWidth="193.0" text="CNPJ (Pessoa Jurídica):">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="cnpjText" />
+            <Label prefHeight="34.0" prefWidth="193.0" text="Telefone (Delivery):">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="telefoneText" />
+            <Label prefHeight="33.0" prefWidth="193.0" text="Endereço (Delivery):">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="endText" prefHeight="25.0" prefWidth="193.0" />
+            <CheckBox fx:id="estCheck" mnemonicParsing="false" prefHeight="53.0" prefWidth="193.0" text="Estacionamento? (Local)">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </CheckBox>
+         </children>
+      </VBox>
+      <Button layoutX="131.0" layoutY="438.0" mnemonicParsing="false" onAction="#concluir" text="Concluir" />
+   </children>
+</Pane>

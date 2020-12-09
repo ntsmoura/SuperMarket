@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="619.0" prefWidth="359.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CadastroFuncionarioController">
+   <children>
+      <VBox layoutX="105.0" layoutY="34.0" prefHeight="474.0" prefWidth="149.0">
+         <children>
+            <Label prefHeight="29.0" prefWidth="99.0" text="Nome:">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="nomeText" />
+            <Label layoutX="10.0" layoutY="10.0" prefHeight="29.0" prefWidth="99.0" text="CPF:">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="cpfText" layoutX="10.0" layoutY="39.0" />
+            <Label layoutX="10.0" layoutY="64.0" prefHeight="29.0" prefWidth="99.0" text="Idade:">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="idadeText" layoutX="10.0" layoutY="93.0" />
+            <Label layoutX="10.0" layoutY="118.0" prefHeight="29.0" prefWidth="152.0" text="Salário Base:">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="salText" layoutX="10.0" layoutY="147.0" />
+            <Label prefHeight="29.0" prefWidth="152.0" text="Número Id:">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="idText" />
+            <Label prefHeight="29.0" prefWidth="152.0" text="Horário Chegada:">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="horcText" />
+            <Label prefHeight="29.0" prefWidth="152.0" text="Horário Saída:">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="horsText" />
+            <Label prefHeight="29.0" prefWidth="99.0" text="Tipo:">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="tipoFun" prefWidth="150.0" />
+            <Label prefHeight="28.0" prefWidth="149.0" text="Placa (se motoboy)">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="placaText" />
+         </children>
+      </VBox>
+      <Button layoutX="150.0" layoutY="542.0" mnemonicParsing="false" onAction="#concluir" text="Concluir" />
+   </children>
+</Pane>
+
