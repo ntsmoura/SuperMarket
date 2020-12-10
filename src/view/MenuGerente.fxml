@@ -9,7 +9,7 @@
       <Pane prefHeight="200.0" prefWidth="330.0">
          <children>
             <Button onAction="#abrirGerenciaFun" layoutX="99.0" layoutY="40.0" mnemonicParsing="false" text="Gerenciar Funcionário" />
-            <Button layoutX="102.0" layoutY="88.0" mnemonicParsing="false" text="Folha de Pagamento" />
+            <Button onAction="#abrirFolhaPagamento" layoutX="102.0" layoutY="88.0" mnemonicParsing="false" text="Folha de Pagamento" />
             <Button layoutX="116.0" layoutY="134.0" mnemonicParsing="false" text="Receita do Mês" />
          </children>
       </Pane>

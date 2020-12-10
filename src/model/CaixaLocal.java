@@ -11,8 +11,12 @@ public class CaixaLocal extends Funcionario {
 
     @Override
 	public double calculaSalario() {
-		return super.getSalario() + quantidadeDeVendas*comissao;
+		return super.getSalario() + this.calculaComissao();
 	}
+    
+    public double calculaComissao() {
+    	return (double)(comissao*((float)quantidadeDeVendas));
+    }
     
     //Getters e Setters
     public int getQuantidadeDeVendas() {

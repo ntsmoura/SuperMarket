@@ -1,13 +1,13 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 
 public class CompraLocal extends Compra{
 	
 	private CaixaLocal atendente;
 
-	public CompraLocal(Calendar dataHoraRealizada, int quantidadeItens, double totalCompra, FormaPagamento pagamento,
+	public CompraLocal(Date dataHoraRealizada, int quantidadeItens, double totalCompra, FormaPagamento pagamento,
 			ArrayList<Produto> listaProdutos, Cliente cliente, CaixaLocal atendente) {
 		super(dataHoraRealizada, quantidadeItens, totalCompra, pagamento, listaProdutos, cliente);
 		this.atendente = atendente;

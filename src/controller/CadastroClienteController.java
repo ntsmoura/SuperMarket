@@ -22,7 +22,7 @@ import model.ClienteLocal;
 public class CadastroClienteController implements Initializable, Controller {
 	
 	//Lista clientes
-	ArrayList<Cliente> listaClientesGeral = new ArrayList<Cliente>();	
+	public static ArrayList<Cliente> listaClientesGeral = new ArrayList<Cliente>();	
 	
 	//Definindo textFields do produto
 	@FXML
@@ -48,27 +48,37 @@ public class CadastroClienteController implements Initializable, Controller {
 		alert.setHeaderText(null);
 		try {
 			if(!cpfText.getText().equals("")) {
-				if(telefoneText.getText().equals("") && endText.getText().equals("")) {
-					ClienteLocal cli = new ClienteLocal(nomeText.getText(),cpfText.getText(),estCheck.isSelected());
-					listaClientesGeral.add(cli);
-					alert.setContentText("Pessoa física local cadastrada!");
+				if(buscarCliente(cpfText.getText())==null) {
+					if(telefoneText.getText().equals("") && endText.getText().equals("")) {
+						ClienteLocal cli = new ClienteLocal(nomeText.getText(),cpfText.getText(),estCheck.isSelected());
+						listaClientesGeral.add(cli);
+						alert.setContentText("Pessoa física local cadastrada!");
+					}
+					else {
+						ClienteDelivery cli = new ClienteDelivery(nomeText.getText(),cpfText.getText(),telefoneText.getText(),endText.getText());
+						listaClientesGeral.add(cli);
+						alert.setContentText("Pessoa física delivery cadastrada!");
+					}
 				}
 				else {
-					ClienteDelivery cli = new ClienteDelivery(nomeText.getText(),cpfText.getText(),telefoneText.getText(),endText.getText());
-					listaClientesGeral.add(cli);
-					alert.setContentText("Pessoa física delivery cadastrada!");
+					alert.setContentText("CPF já cadastrado!");
 				}
 			}
 			else if(!cnpjText.getText().equals("")) {
-				if(telefoneText.getText().equals("") && endText.getText().equals("")) {
-					ClienteLocal cli = new ClienteLocal(nomeText.getText(),Long.parseLong(cnpjText.getText()),estCheck.isSelected());
-					listaClientesGeral.add(cli);
-					alert.setContentText("Pessoa jurídica local cadastrada!");
+				if(buscarCliente(Long.parseLong(cnpjText.getText())) == null){
+					if(telefoneText.getText().equals("") && endText.getText().equals("")) {
+						ClienteLocal cli = new ClienteLocal(nomeText.getText(),Long.parseLong(cnpjText.getText()),estCheck.isSelected());
+						listaClientesGeral.add(cli);
+						alert.setContentText("Pessoa jurídica local cadastrada!");
+					}
+					else {
+						ClienteDelivery cli = new ClienteDelivery(nomeText.getText(),Long.parseLong(cnpjText.getText()),telefoneText.getText(),endText.getText());
+						listaClientesGeral.add(cli);
+						alert.setContentText("Pessoa jurídica delivery cadastrada!");
+					}
 				}
 				else {
-					ClienteDelivery cli = new ClienteDelivery(nomeText.getText(),Long.parseLong(cnpjText.getText()),telefoneText.getText(),endText.getText());
-					listaClientesGeral.add(cli);
-					alert.setContentText("Pessoa jurídica delivery cadastrada!");
+					alert.setContentText("CNPJ já cadastrado!");
 				}
 			}
 			alert.showAndWait();
@@ -100,6 +110,22 @@ public class CadastroClienteController implements Initializable, Controller {
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	//Busca cliente por CPF
+	public static Cliente buscarCliente(String cpf) {
+		for(Cliente c: listaClientesGeral) {
+			if(c.getCpf().equals(cpf)) return c;
+		}
+		return null;
+	}
+	
+	//Busca cliente por CNPJ
+	public static Cliente buscarCliente(long cnpj) {
+		for(Cliente c: listaClientesGeral) {
+			if(c.getCnpj() == cnpj) return c;
+		}
+		return null;
 	}
 
 }

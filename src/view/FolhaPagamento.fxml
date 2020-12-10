@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane prefHeight="492.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FolhaPagamentoController">
+   <children>
+      <TableView fx:id="tabelaFolhaPag" prefHeight="492.0" prefWidth="533.0">
+        <columns>
+          <TableColumn fx:id="nomeCol" prefWidth="143.0" text="Nome" />
+          <TableColumn fx:id="cargoCol" prefWidth="76.0" text="Cargo" />
+            <TableColumn fx:id="salarioCol" prefWidth="90.0" text="Salário" />
+            <TableColumn fx:id="comissoesCol" prefWidth="86.0" text="Comissões" />
+            <TableColumn fx:id="totalCol" prefWidth="137.0" text="Total a Receber" />
+        </columns>
+      </TableView>
+   </children>
+</Pane>

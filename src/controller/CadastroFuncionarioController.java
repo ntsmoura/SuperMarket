@@ -3,7 +3,6 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.swing.JOptionPane;
 
 import application.Main;
 import javafx.collections.FXCollections;
@@ -54,28 +53,33 @@ public class CadastroFuncionarioController implements Initializable, Controller{
 		alert.setHeaderText(null);
 		alert.setContentText("Funcionário cadastrado com sucesso!");
 		try {
-			//Adiciona funcionário a depender do cargo
-			String tipo = tipoFun.getSelectionModel().getSelectedItem();
-			if(tipo.equals("Motoboy")) {
-				if(placaText.getText().equals("")) {
-					alert.setContentText("Placa inválida!");
+			if(FuncionarioController.buscarCPF(cpfText.getText())==null) {
+				//Adiciona funcionário a depender do cargo
+				String tipo = tipoFun.getSelectionModel().getSelectedItem();
+				if(tipo.equals("Motoboy")) {
+					if(placaText.getText().equals("")) {
+						alert.setContentText("Placa inválida!");
+					}
+					else {
+						Motoboy motoboy = new Motoboy(nomeText.getText(),cpfText.getText(),Integer.parseInt(idadeText.getText()),Double.parseDouble(salText.getText()),idText.getText(),horcText.getText(),horsText.getText(),placaText.getText());
+						FuncionarioController.listaFuncionariosGeral.add(motoboy);
+					}
 				}
-				else {
-					Motoboy motoboy = new Motoboy(nomeText.getText(),cpfText.getText(),Integer.parseInt(idadeText.getText()),Double.parseDouble(salText.getText()),idText.getText(),horcText.getText(),horsText.getText(),placaText.getText());
-					FuncionarioController.listaFuncionariosGeral.add(motoboy);
+				else if(tipo.equals("Caixa")) {
+					CaixaLocal caixa = new CaixaLocal(nomeText.getText(),cpfText.getText(),Integer.parseInt(idadeText.getText()),Double.parseDouble(salText.getText()),idText.getText(),horcText.getText(),horsText.getText(),0);
+					FuncionarioController.listaFuncionariosGeral.add(caixa);
+				}
+				else if(tipo.equals("Supervisor")) {
+					Supervisor supervisor = new Supervisor(nomeText.getText(),cpfText.getText(),Integer.parseInt(idadeText.getText()),Double.parseDouble(salText.getText()),idText.getText(),horcText.getText(),horsText.getText());
+					FuncionarioController.listaFuncionariosGeral.add(supervisor);
+				}
+				else if(tipo.equals("Gerente")){
+					Gerente gerente = new Gerente(nomeText.getText(),cpfText.getText(),Integer.parseInt(idadeText.getText()),Double.parseDouble(salText.getText()),idText.getText(),horcText.getText(),horsText.getText());
+					FuncionarioController.listaFuncionariosGeral.add(gerente);
 				}
 			}
-			else if(tipo.equals("Caixa")) {
-				CaixaLocal caixa = new CaixaLocal(nomeText.getText(),cpfText.getText(),Integer.parseInt(idadeText.getText()),Double.parseDouble(salText.getText()),idText.getText(),horcText.getText(),horsText.getText(),0);
-				FuncionarioController.listaFuncionariosGeral.add(caixa);
-			}
-			else if(tipo.equals("Supervisor")) {
-				Supervisor supervisor = new Supervisor(nomeText.getText(),cpfText.getText(),Integer.parseInt(idadeText.getText()),Double.parseDouble(salText.getText()),idText.getText(),horcText.getText(),horsText.getText());
-				FuncionarioController.listaFuncionariosGeral.add(supervisor);
-			}
-			else if(tipo.equals("Gerente")){
-				Gerente gerente = new Gerente(nomeText.getText(),cpfText.getText(),Integer.parseInt(idadeText.getText()),Double.parseDouble(salText.getText()),idText.getText(),horcText.getText(),horsText.getText());
-				FuncionarioController.listaFuncionariosGeral.add(gerente);
+			else {
+				alert.setContentText("CPF já cadastrado!");
 			}
 			alert.showAndWait();
 		}

@@ -19,11 +19,21 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.ProdutoTable;
 import model.Supervisor;
+import model.CaixaLocal;
+import model.Cartao;
+import model.Cliente;
+import model.ClienteDelivery;
 import model.CompraLocal;
+import model.Dinheiro;
+import model.FormaPagamento;
 import model.Produto;
 import model.ProdutoPesado;
 import model.ProdutoQuantidade;
@@ -33,8 +43,10 @@ import model.Gerente;
 
 public class VendaLocalController implements Initializable, Controller{
 	
-	ArrayList<CompraLocal> listaComprasLocais = new ArrayList<CompraLocal>(); //Lista de compras já feitas
-	ArrayList<Produto> listaProdutosCompraAtual = new ArrayList<Produto>(); //Guarda produtos da compra que está ocorrendo
+	public static ArrayList<CompraLocal> listaComprasLocais = new ArrayList<CompraLocal>(); //Lista de compras já feitas
+	private ArrayList<Produto> listaProdutosCompraAtual = new ArrayList<Produto>(); //Guarda produtos da compra que está ocorrendo
+	private Cliente cli;
+	public static CompraLocal compraAtual;
 	
 	//Definindo colunas e tabela
 	@FXML
@@ -56,23 +68,101 @@ public class VendaLocalController implements Initializable, Controller{
     private TextField codigoText;
     @FXML
     private TextField qtdEPesoText;
+    @FXML
+    private TextField cpfText;
+    @FXML
+    private TextField cnpjText;
+    @FXML
+    private ChoiceBox<String> atendChoice;
+    
+    //Definindo labels
+    @FXML
+    private Label clienteLabel;
+    
+	public static Stage vendaLocalStage = new Stage();
 
 	@Override
 	public void concluir() {
-		// TODO Auto-generated method stub
+		try {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Importante.");
+			alert.setHeaderText("Selecionar forma de pagamento!");
+			alert.setContentText("Escolha:");
+	
+			ButtonType buttonTypeOne = new ButtonType("Dinheiro");
+			ButtonType buttonTypeTwo = new ButtonType("Débito");
+			ButtonType buttonTypeThree = new ButtonType("Crédito");
+			ButtonType buttonTypeCancel = new ButtonType("Cancelar", ButtonData.CANCEL_CLOSE);
+	
+			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
+	
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOne){
+				TextInputDialog dialog = new TextInputDialog("");
+				dialog.setTitle("Dinheiro");
+				dialog.setHeaderText("Preencha valor recebido!");
+				dialog.setContentText("R$:");
+				Optional<String> result2 = dialog.showAndWait();
+				if (result2.isPresent()){
+				    double recebido = Double.parseDouble(result2.get());
+				    double troco = recebido - this.calculaTotalCompra();
+				    System.out.println(troco);
+				    Dinheiro din = new Dinheiro("Dinheiro",this.calculaTotalCompra(),troco,recebido);
+				    finalizarCompra(din,cli);
+				}
+			} else if (result.get() == buttonTypeTwo) {
+				Cartao debito = new Cartao("Débito",this.calculaTotalCompra(),1,true);
+				finalizarCompra(debito,cli);
+			} else if (result.get() == buttonTypeThree) {
+				TextInputDialog dialog = new TextInputDialog("");
+				dialog.setTitle("Crédito");
+				dialog.setHeaderText("Preencha quantidade de parcelas!");
+				dialog.setContentText("N°:");
+				Optional<String> result3 = dialog.showAndWait();
+				if (result3.isPresent()){
+				    int parcelas = Integer.parseInt(result3.get());
+				    Cartao credito = new Cartao("Crédito",this.calculaTotalCompra(),parcelas,false);
+				    finalizarCompra(credito,cli);
+				}
+			} else {
+			    // ... user chose CANCEL or closed the dialog
+			}
+		}
+		catch(Exception e) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Aviso!");
+			alert.setHeaderText(null);
+			alert.setContentText("Algum valor inválido!");
+			alert.showAndWait();
+		}
+		
+	}
+	
+	//Finaliza compra
+	private void finalizarCompra(FormaPagamento forma, Cliente cli) {
+		CaixaLocal atendente = (CaixaLocal) FuncionarioController.buscarCPF(atendChoice.getValue());
+		CompraLocal compra = new CompraLocal(java.util.Calendar.getInstance().getTime(),listaProdutosCompraAtual.size(),this.calculaTotalCompra(),forma,
+				listaProdutosCompraAtual,cli,atendente);
+		atendente.setQuantidadeDeVendas(atendente.getQuantidadeDeVendas()+1);
+		listaProdutosCompraAtual.clear();
+		compraAtual = compra;
+		listaComprasLocais.add(compra);
+		cli = null;
+		NotaFiscalController nota = new NotaFiscalController();
+		nota.iniciar();
+		
 		
 	}
 
 	@Override
 	public void iniciar() {
 		try {
-			Stage menuStage = new Stage();
 			Parent root = FXMLLoader.load(Main.class.getResource("/View/VendaLocal.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(Main.class.getResource("/View/application.css").toExternalForm());
-			menuStage.setScene(scene);
-			menuStage.show();
-			menuStage.setTitle("Venda Local");
+			vendaLocalStage.setScene(scene);
+			vendaLocalStage.show();
+			vendaLocalStage.setTitle("Venda Local");
 		} 
 		catch(Exception e) {
 			e.printStackTrace();
@@ -161,19 +251,79 @@ public class VendaLocalController implements Initializable, Controller{
         peso.setCellValueFactory(new PropertyValueFactory<>("peso"));
         precoUnit.setCellValueFactory(new PropertyValueFactory<>("precoUnit"));
         precoTotal.setCellValueFactory(new PropertyValueFactory<>("precoTotal"));
+        
+        //Preenche lista de atendentes
+        ArrayList<String> cpfAtends = new ArrayList<String>();
+        
+        for(Funcionario f: FuncionarioController.listaFuncionariosGeral) {
+        	if(f instanceof CaixaLocal) {
+        		cpfAtends.add(f.getCpf());
+        	}
+        }
+        
+        //Associa lista ao choicebox
+        atendChoice.setItems(FXCollections.observableArrayList(cpfAtends));
 		
 	}
 	
 	//Prepara lista de produtos
 	 private ObservableList<ProdutoTable> listaDeProdutos() {
-	        ArrayList<ProdutoTable> listTable = new ArrayList<ProdutoTable>();
-	        for(Produto p : listaProdutosCompraAtual) {
-	        	if(p instanceof ProdutoPesado) listTable.add(new ProdutoTable(p.getDescricao(),0,((ProdutoPesado) p).getPeso(),p.getPreco(),p.getPreco()*((ProdutoPesado) p).getPeso()));
-	        	else {
-	        		listTable.add(new ProdutoTable(p.getDescricao(),((ProdutoQuantidade) p).getQuantidade(),0.0,p.getPreco(),p.getPreco()*((ProdutoQuantidade) p).getQuantidade()));
-	        	}
-	        }
-	        return FXCollections.observableArrayList(listTable);
-	    }
+        ArrayList<ProdutoTable> listTable = new ArrayList<ProdutoTable>();
+        for(Produto p : listaProdutosCompraAtual) {
+        	if(p instanceof ProdutoPesado) listTable.add(new ProdutoTable(p.getDescricao(),0,((ProdutoPesado) p).getPeso(),p.getPreco(),p.getPreco()*((ProdutoPesado) p).getPeso()));
+        	else {
+        		listTable.add(new ProdutoTable(p.getDescricao(),((ProdutoQuantidade) p).getQuantidade(),0.0,p.getPreco(),p.getPreco()*((ProdutoQuantidade) p).getQuantidade()));
+        	}
+        }
+        return FXCollections.observableArrayList(listTable);
+	 }
+	 
+	 //Adiciona Cliente
+	 public void adicionaCliente() {
+		 Alert alert = new Alert(AlertType.INFORMATION);
+		 alert.setTitle("Aviso!");
+		 alert.setHeaderText(null);
+		 if(cpfText.getText().equals("") && cnpjText.getText().equals("")) {
+			 alert.setContentText("Preencha um dos campos, CPNJ ou CPF.");
+ 			 alert.showAndWait();
+		 }
+		 else if(!cpfText.getText().equals("") && !cnpjText.getText().equals("")) {
+			 alert.setContentText("Preencha somente um dos campos, CPF ou CNPJ");
+ 			 alert.showAndWait();
+		 }
+		 else if(!cpfText.getText().equals("")){
+			 cli = CadastroClienteController.buscarCliente(cpfText.getText());
+			 if(cli==null || (cli instanceof ClienteDelivery)) {
+				 alert.setContentText("Cliente não encontrado!");
+	 			 alert.showAndWait();
+			 }
+			 else {
+				 clienteLabel.setText(cli.getNome());
+			 }
+		 }
+		 else if(!cnpjText.getText().equals("") || (cli instanceof ClienteDelivery)) {
+			 cli = CadastroClienteController.buscarCliente(Long.parseLong(cnpjText.getText()));
+			 if(cli==null) {
+				 alert.setContentText("Cliente não encontrado!");
+	 			 alert.showAndWait();
+			 }
+			 else {
+				 clienteLabel.setText(cli.getNome());
+			 }
+		 }
+	 }
+	 
+	 //Calcula total da compra
+	 private double calculaTotalCompra() {
+		 Double soma = 0.0;
+		 for(Produto p : listaProdutosCompraAtual) {
+        	if(p instanceof ProdutoPesado) soma+= p.getPreco()*((ProdutoPesado) p).getPeso();
+        	else {
+        		soma+= p.getPreco()*((ProdutoQuantidade) p).getQuantidade();
+        	}
+		 }
+		 return soma;
+	 }
+	 
 
 }

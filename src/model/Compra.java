@@ -1,10 +1,10 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 
 public abstract class Compra {
-	private Calendar dataHoraRealizada;
+	private Date dataHoraRealizada;
 	private int quantidadeItens;
 	private double TotalCompra;
 	private FormaPagamento pagamento;
@@ -12,7 +12,7 @@ public abstract class Compra {
 	private Cliente cliente;
 
 	//Construtor
-	public Compra(Calendar dataHoraRealizada, int quantidadeItens, double totalCompra, FormaPagamento pagamento,
+	public Compra(Date dataHoraRealizada, int quantidadeItens, double totalCompra, FormaPagamento pagamento,
 			ArrayList<Produto> listaProdutos, Cliente cliente) {
 		this.dataHoraRealizada = dataHoraRealizada;
 		this.quantidadeItens = quantidadeItens;
@@ -23,10 +23,10 @@ public abstract class Compra {
 	}
 	
 	//Getters e Setters
-	public Calendar getDataHoraRealizada() {
+	public Date getDataHoraRealizada() {
 		return dataHoraRealizada;
 	}
-	public void setDataHoraRealizada(Calendar dataHoraRealizada) {
+	public void setDataHoraRealizada(Date dataHoraRealizada) {
 		this.dataHoraRealizada = dataHoraRealizada;
 	}
 	public int getQuantidadeItens() {

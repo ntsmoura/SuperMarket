@@ -14,10 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -160,6 +158,14 @@ public class FuncionarioController implements Initializable, Controller {
 	public void atualizarLista() {
 		tabelaFun.getItems().clear();
 		tabelaFun.setItems(listaDeFuncionarios());
+	}
+	
+	//Busca funcionario por CPF
+	public static Funcionario buscarCPF(String cpf) {
+		for(Funcionario f: listaFuncionariosGeral) {
+			if(f.getCpf().equals(cpf)) return f;
+		}
+		return null;
 	}
 	 
 }

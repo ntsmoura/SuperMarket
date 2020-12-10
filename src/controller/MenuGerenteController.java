@@ -43,5 +43,11 @@ public class MenuGerenteController implements Initializable, Controller{
 		FuncionarioController funC = new FuncionarioController();
 		funC.iniciar();
 	}
+	
+	public void abrirFolhaPagamento() {
+		FolhaPagamentoController fpC = new FolhaPagamentoController();
+		fpC.iniciar();
+	}
+
 
 }

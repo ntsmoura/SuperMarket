@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane prefHeight="361.0" prefWidth="433.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NotaFiscalController">
+   <children>
+      <VBox layoutX="107.0" prefHeight="361.0" prefWidth="319.0">
+         <children>
+            <Label fx:id="dataLabel" prefHeight="39.0" prefWidth="357.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="qtdLabel" prefHeight="42.0" prefWidth="319.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalLabel" prefHeight="39.0" prefWidth="357.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="pagamentoLabel" prefHeight="39.0" prefWidth="357.0">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="parcelasLabel" prefHeight="39.0" prefWidth="357.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="trocoLabel" prefHeight="39.0" prefWidth="357.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="clienteLabel" prefHeight="39.0" prefWidth="357.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="atendenteLabel" prefHeight="39.0" prefWidth="357.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="1.0" prefHeight="361.0" prefWidth="113.0">
+         <children>
+            <Label prefHeight="39.0" prefWidth="357.0" text="Data:">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <Label prefHeight="42.0" prefWidth="319.0" text="Qtd. Itens:">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <Label prefHeight="39.0" prefWidth="357.0" text="Total R$:">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <Label prefHeight="39.0" prefWidth="357.0" text="Tipo Pag:">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <Label prefHeight="39.0" prefWidth="357.0" text="Parcelas:">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <Label prefHeight="39.0" prefWidth="357.0" text="Troco:">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <Label prefHeight="39.0" prefWidth="357.0" text="Cliente:">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <Label prefHeight="39.0" prefWidth="357.0" text="Atendente:">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</Pane>
