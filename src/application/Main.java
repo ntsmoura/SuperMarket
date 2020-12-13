@@ -1,4 +1,4 @@
-/*@author �lvaro Souza e Natan Moura 
+/*@author Álvaro Souza e Natan Moura
  *@version 1.0
 */
 

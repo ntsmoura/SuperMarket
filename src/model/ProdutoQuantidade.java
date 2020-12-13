@@ -1,3 +1,6 @@
+/*@author Álvaro Souza e Natan Moura
+ *@version 1.0
+ */
 package model;
 
 public class ProdutoQuantidade extends Produto {

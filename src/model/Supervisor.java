@@ -1,3 +1,6 @@
+/*@author Álvaro Souza e Natan Moura
+ *@version 1.0
+ */
 package model;
 public class Supervisor extends Funcionario {
     private final double taxaPorCargoMaior = 0.3;
