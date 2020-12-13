@@ -1,4 +1,4 @@
-/*@author 羖varo Souza e Natan Moura 
+/*@author 锟絣varo Souza e Natan Moura 
  *@version 1.0
 */
 
@@ -23,6 +23,7 @@ import javafx.scene.control.Alert.AlertType;
 
 
 public class Main extends Application {
+	//Inicia o m贸dulo main da Aplica莽茫o
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -37,52 +38,51 @@ public class Main extends Application {
 		}
 	}
 	
-	//Inicia m骴ulo de cadastro produto
+	//Inicia m贸dulo de cadastro produto
 	@FXML
 	public void startProdutoCadastro(ActionEvent event) {
 		ProdutoController prodC = new ProdutoController();
 		prodC.iniciar();
 	}
 	
-	//Inicia m骴ulo de login
+	//Inicia m贸dulo de login
 	@FXML
 	public void startLogin(ActionEvent event) {
 		LoginController logC = new LoginController();
 		logC.iniciar();
 	}
 	
-	//Inicia m骴ulo de cadastro cliente
+	//Inicia m贸dulo de cadastro cliente
 	@FXML
 	public void startClienteCadastro(ActionEvent event) {
 		CadastroClienteController cliC = new CadastroClienteController();
 		cliC.iniciar();
 	}
 		
-	//Inicia m骴ulo de venda local	
+	//Inicia m贸dulo de venda local
 	@FXML
 	public void startVendaLocal(ActionEvent event) {
 		VendaLocalController vlC = new VendaLocalController();
 		vlC.iniciar();
 	}
 	
-	//Inicia m骴ulo de venda delivery	
+	//Inicia m贸dulo de venda delivery
 	@FXML
 	public void startVendaDelivery(ActionEvent event) {
 		VendaDeliveryController vdlC = new VendaDeliveryController();
 		vdlC.iniciar();
 	}
 	
-	//Inicia m骴ulo about
+	//Inicia m贸dulo about
 	@FXML
 	public void startAbout(ActionEvent event) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Sobre.");
 		alert.setHeaderText(null);
-		alert.setContentText("Sistema criado por Natan Moura e 羖varo Souza.\nVers鉶 1.0\nDisciplina: MATA55 - POO (UFBA)");
+		alert.setContentText("Sistema criado por Natan Moura e 锟絣varo Souza.\nVers锟給 1.0\nDisciplina: MATA55 - POO (UFBA)");
 		alert.showAndWait();
 	}
-	
-	
+
 	public static void main(String[] args) {
 		FuncionarioController.listaFuncionariosGeral.add(new Gerente("ADM","001",00,00,"00","00","00")); //Adiciona ADM ao sistema
 		launch(args);

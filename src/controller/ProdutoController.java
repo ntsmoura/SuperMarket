@@ -1,10 +1,5 @@
 package controller;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-
-
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -21,22 +16,25 @@ import model.Produto;
 import model.ProdutoPesado;
 import model.ProdutoQuantidade;
 
-public class ProdutoController implements Initializable, Controller{
-	
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+public class ProdutoController implements Initializable, Controller {
+
 	public static ArrayList<Produto> listaProdutosGeral = new ArrayList<Produto>(); //Lista produtos
-	
+
+	//Define a ChoiceBox de tipo de produtos
 	@FXML
 	private ChoiceBox<String> tipoProduto;
-	
+
 	//Definindo textFields do produto
 	@FXML
-    private TextField marcaText;
-	
+	private TextField marcaText;
 	@FXML
-    private TextField descricaoText;
-	
+	private TextField descricaoText;
 	@FXML
-    private TextField precoText;
+	private TextField precoText;
 	@FXML
     private TextField codigoText;
 	
@@ -50,42 +48,42 @@ public class ProdutoController implements Initializable, Controller{
 			produtoStage.setScene(scene);
 			produtoStage.show();
 			produtoStage.setTitle("Cadastro Produto");
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
+	//Valida e constr√≥i os produtos quantidade/pesado
 	@FXML
 	public void concluir() {
 		String tipo = tipoProduto.getSelectionModel().getSelectedItem();
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Aviso!");
 		alert.setHeaderText(null);
-		//Trata erros em digitaÁ„o ou falta de escolha de tipo
+		//Trata erros em digita√ß√£o ou falta de escolha de tipo
 		try {
-			//Adiciona produto na lista conforme tipo especÌfico
-			if(tipo.equals("Pesado")) {
-				ProdutoPesado prod = new ProdutoPesado(descricaoText.getText(),marcaText.getText(),Double.parseDouble(precoText.getText()),codigoText.getText(),0);
+			//Adiciona produto na lista conforme tipo espec√≠fico
+			if (tipo.equals("Pesado")) {
+				ProdutoPesado prod = new ProdutoPesado(descricaoText.getText(), marcaText.getText(), Double.parseDouble(precoText.getText()),
+						codigoText.getText(), 0);
 				listaProdutosGeral.add(prod);
-			}
-			else if (tipo.equals("Quantidade")){
-				ProdutoQuantidade prod = new ProdutoQuantidade(descricaoText.getText(),marcaText.getText(),Double.parseDouble(precoText.getText()),codigoText.getText(),0);
+			} else if (tipo.equals("Quantidade")) {
+				ProdutoQuantidade prod = new ProdutoQuantidade(descricaoText.getText(), marcaText.getText(), Double.parseDouble(precoText.getText()),
+						codigoText.getText(), 0);
 				listaProdutosGeral.add(prod);
 			}
 			alert.setContentText("Produto cadastrado com sucesso!");
 			alert.showAndWait();
-		}
-		catch (Exception e) {
-			alert.setContentText("Algum valor inv·lido!");
+		} catch (Exception e) {
+			alert.setContentText("Algum valor inv√°lido!");
 			alert.showAndWait();
 		}
 	}
 
-
+	//Inicializa choicebox com valores determinados
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		tipoProduto.setItems(FXCollections.observableArrayList("Pesado", "Quantidade")); //Inicializa choicebox com valores determinados
-		
+		tipoProduto.setItems(FXCollections.observableArrayList("Pesado", "Quantidade"));
 	}
 
 }

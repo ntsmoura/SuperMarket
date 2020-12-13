@@ -1,9 +1,5 @@
 package controller;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-
 import application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,19 +7,23 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.Cliente;
 import model.ClienteDelivery;
 import model.ClienteLocal;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
 public class CadastroClienteController implements Initializable, Controller {
-	
+
 	//Lista clientes
-	public static ArrayList<Cliente> listaClientesGeral = new ArrayList<Cliente>();	
-	
+	public static ArrayList<Cliente> listaClientesGeral = new ArrayList<Cliente>();
+
 	//Definindo textFields do produto
 	@FXML
 	private TextField nomeText;
@@ -50,46 +50,47 @@ public class CadastroClienteController implements Initializable, Controller {
 			if(!cpfText.getText().equals("")) {
 				if(buscarCliente(cpfText.getText())==null) {
 					if(telefoneText.getText().equals("") && endText.getText().equals("")) {
-						ClienteLocal cli = new ClienteLocal(nomeText.getText(),cpfText.getText(),estCheck.isSelected());
+						ClienteLocal cli = new ClienteLocal(nomeText.getText(), cpfText.getText(), estCheck.isSelected());
 						listaClientesGeral.add(cli);
-						alert.setContentText("Pessoa fÌsica local cadastrada!");
+						alert.setContentText("Pessoa f√≠sica local cadastrada!");
 					}
 					else {
-						ClienteDelivery cli = new ClienteDelivery(nomeText.getText(),cpfText.getText(),telefoneText.getText(),endText.getText());
+						ClienteDelivery cli = new ClienteDelivery(nomeText.getText(), cpfText.getText(), telefoneText.getText(), endText.getText());
 						listaClientesGeral.add(cli);
-						alert.setContentText("Pessoa fÌsica delivery cadastrada!");
+						alert.setContentText("Pessoa f√≠sica delivery cadastrada!");
 					}
 				}
 				else {
-					alert.setContentText("CPF j· cadastrado!");
+					alert.setContentText("CPF j√° cadastrado!");
 				}
 			}
 			else if(!cnpjText.getText().equals("")) {
 				if(buscarCliente(Long.parseLong(cnpjText.getText())) == null){
 					if(telefoneText.getText().equals("") && endText.getText().equals("")) {
-						ClienteLocal cli = new ClienteLocal(nomeText.getText(),Long.parseLong(cnpjText.getText()),estCheck.isSelected());
+						ClienteLocal cli = new ClienteLocal(nomeText.getText(), Long.parseLong(cnpjText.getText()),
+								estCheck.isSelected());
 						listaClientesGeral.add(cli);
-						alert.setContentText("Pessoa jurÌdica local cadastrada!");
+						alert.setContentText("Pessoa jur√≠dica local cadastrada!");
 					}
 					else {
-						ClienteDelivery cli = new ClienteDelivery(nomeText.getText(),Long.parseLong(cnpjText.getText()),telefoneText.getText(),endText.getText());
+						ClienteDelivery cli = new ClienteDelivery(nomeText.getText(), Long.parseLong(cnpjText.getText()),
+								telefoneText.getText(), endText.getText());
 						listaClientesGeral.add(cli);
-						alert.setContentText("Pessoa jurÌdica delivery cadastrada!");
+						alert.setContentText("Pessoa jur√≠dica delivery cadastrada!");
 					}
 				}
 				else {
-					alert.setContentText("CNPJ j· cadastrado!");
+					alert.setContentText("CNPJ j√° cadastrado!");
 				}
 			}
 			alert.showAndWait();
-		}
-		catch (Exception e) {
-			alert.setContentText("Algum valor inv·lido!");
+		} catch (Exception e) {
+			alert.setContentText("Algum valor inv√°lido!");
 			alert.showAndWait();
-		}		
+		}
 	}
 
-	//Inicia mÛdulo de cadastro de cliente
+	//Inicia m√≥dulo de cadastro de cliente
 	@Override
 	public void iniciar() {
 		try {

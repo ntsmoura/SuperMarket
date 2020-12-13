@@ -1,20 +1,21 @@
 package model;
+
 public class ProdutoQuantidade extends Produto {
     private int quantidade;
 
-
+    //Construtor
     public ProdutoQuantidade(String descricao, String marca, double preco, String codigoDeBarras, int quantidade) {
         super(descricao, marca, preco, codigoDeBarras);
         this.quantidade = quantidade;
     }
-    
 
-    // Calcula preço pela numero de produtos comprados
+    //@return O preço do produto pelo número de produtos comprados
     @Override
-    public double calculaPrecoTotal(){
-        return (super.getPreco()*this.quantidade);
+    public double calculaPrecoTotal() {
+        return (super.getPreco() * this.quantidade);
     }
 
+    //Getters e setters
     public int getQuantidade() {
         return quantidade;
     }

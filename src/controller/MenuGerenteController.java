@@ -19,9 +19,9 @@ public class MenuGerenteController implements Initializable, Controller{
 	@Override
 	public void concluir() {
 		// TODO Auto-generated method stub
-		
 	}
 
+	//Inicia o módulo do Menu do Gerente
 	@Override
 	public void iniciar() {
 		try {
@@ -37,30 +37,34 @@ public class MenuGerenteController implements Initializable, Controller{
 		}
 	}
 
+	//Inicia o stage de Login
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		LoginController.loginStage.hide();
-		
 	}
-	
+
+	//Inicia o gerenciamento de funcionários
 	public void abrirGerenciaFun() {
 		FuncionarioController funC = new FuncionarioController();
 		funC.iniciar();
 	}
-	
+
+	//Inicia a folha de pagamento
 	public void abrirFolhaPagamento() {
 		FolhaPagamentoController fpC = new FolhaPagamentoController();
 		fpC.iniciar();
 	}
-	
+
+	//Gera a receita do mês
 	public void gerarReceitaMes() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Receita do m�s.");
+		alert.setTitle("Receita do mês.");
 		alert.setHeaderText(null);
-		alert.setContentText("O total adquirido em vendas esse m�s � de R$: " + this.calculaTotalVendas());
+		alert.setContentText("O total adquirido em vendas esse mês é de R$: " + this.calculaTotalVendas());
 		alert.showAndWait();
 	}
-	
+
+	//@return o total de vendas feita no mês e limpa a lista de compras Locais/Delivery
 	private double calculaTotalVendas() {
 		ArrayList<Compra> vendas = new ArrayList<Compra>();
 		vendas.addAll(VendaLocalController.listaComprasLocais);
@@ -74,6 +78,5 @@ public class MenuGerenteController implements Initializable, Controller{
 		VendaDeliveryController.listaComprasDelivery.clear();
 		return total;
 	}
-
 
 }

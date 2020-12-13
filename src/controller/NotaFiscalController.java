@@ -20,7 +20,7 @@ import model.Cartao;
 
 public class NotaFiscalController implements Initializable, Controller{
 	
-	//Labels
+	//Definindo Labels
 	@FXML
 	private Label dataLabel;
 	@FXML
@@ -40,7 +40,7 @@ public class NotaFiscalController implements Initializable, Controller{
 	
 
 
-	//Inicia tela
+	//Inicia o módulo de Nota Fiscal Local
 	@Override
 	public void iniciar() {
 		try {
@@ -54,10 +54,10 @@ public class NotaFiscalController implements Initializable, Controller{
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-		}	
-		
+		}
 	}
 
+	//Constrói a Nota Fiscal Local
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		VendaLocalController.vendaLocalStage.close();
@@ -70,22 +70,20 @@ public class NotaFiscalController implements Initializable, Controller{
         FormaPagamento pagamento = c.getPagamento();
         pagamentoLabel.setText(pagamento.getDescricao());
         if(pagamento instanceof Dinheiro) {
-        	parcelasLabel.setText("� dinheiro.");
+        	parcelasLabel.setText("É dinheiro.");
         	trocoLabel.setText(String.valueOf(((Dinheiro) pagamento).getTroco()));
         }
         else {
         	parcelasLabel.setText(String.valueOf(((Cartao)pagamento).getParcelas()));
-        	trocoLabel.setText("N�o tem troco.");
+        	trocoLabel.setText("Não tem troco.");
         }
         clienteLabel.setText(c.getCliente().getNome());
         atendenteLabel.setText(c.getAtendente().getNome());
-		
 	}
 
 	@Override
 	public void concluir() {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

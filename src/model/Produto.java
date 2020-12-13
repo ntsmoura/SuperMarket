@@ -2,17 +2,18 @@ package model;
 public abstract class Produto {
     private String marca;
     private String descricao;
-    private double preco; // O preço pela unidade ou por quilo de produto e quem calcula o preço final são as classes específicas
+    private double preco;
     private String codigoDeBarras;
 
+    //Construtor
     public Produto(String descricao, String marca, double preco, String codigoDeBarras) {
         this.marca = marca;
         this.preco = preco;
         this.descricao = descricao;
         this.codigoDeBarras = codigoDeBarras;
     }
-
-    public abstract double calculaPrecoTotal(); //Calcula preço do produto na compra
+    //@return o preÃ§o pelo peso(em Kg) ou quantidade de produto
+    public abstract double calculaPrecoTotal(); //Calcula preÃ§o do produto na compra
     
     //Getters e Setters
     public String getMarca() {

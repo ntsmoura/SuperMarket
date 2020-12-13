@@ -16,22 +16,24 @@ import model.Funcionario;
 import model.Gerente;
 
 public class LoginController implements Initializable, Controller{
-	
+	//Definindo o TextField de cpf de entrada
 	@FXML
 	private TextField cpfText;
-	
+	//Definindo o Label
 	@FXML
 	private Label warnText;
-	
+
+	//Dinindo o Stage
 	public static Stage loginStage = new Stage();
 
+	//Checa se o CPF Ã© de um gerente para dar acesso ao Menu de Gerenciamento
 	@Override
 	public void concluir() {
 		int j = 0;
 		for(int i = 0; i<FuncionarioController.listaFuncionariosGeral.size();i++) {
 			Funcionario func = FuncionarioController.listaFuncionariosGeral.get(i);
 			if(cpfText.getText().equals(func.getCpf())) {
-				if (func instanceof Gerente) { //Checa se cpf é de gerente
+				if (func instanceof Gerente) { //Checa se cpf Ã© de gerente
 					j = 1;
 					MenuGerenteController mGCc = new MenuGerenteController();
 					mGCc.iniciar();
@@ -41,7 +43,7 @@ public class LoginController implements Initializable, Controller{
 		if (j==0) warnText.setText("Acesso negado!");
 	}
 
-	//Inicia módulo de login para Gerente
+	//Inicia mÃ³dulo de login para Gerente
 	@Override
 	public void iniciar() {
 		try {
@@ -59,8 +61,6 @@ public class LoginController implements Initializable, Controller{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
 	}
-	
 
 }

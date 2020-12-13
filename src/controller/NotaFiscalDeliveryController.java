@@ -1,10 +1,5 @@
 package controller;
 
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ResourceBundle;
-
 import application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,15 +8,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import model.Cartao;
-import model.ClienteDelivery;
-import model.CompraDelivery;
-import model.Dinheiro;
-import model.FormaPagamento;
+import model.*;
 
-public class NotaFiscalDeliveryController implements Initializable, Controller{
-	
-	//Labels
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ResourceBundle;
+
+public class NotaFiscalDeliveryController implements Initializable, Controller {
+
+	//Definindo Labels
 	@FXML
 	private Label dataLabel;
 	@FXML
@@ -42,10 +38,8 @@ public class NotaFiscalDeliveryController implements Initializable, Controller{
 	private Label enderecoLabel;
 	@FXML
 	private Label dataHoraLabel;
-	
 
-
-	//Inicia tela
+	//Inicia tela da Nota Fiscal Delivery
 	@Override
 	public void iniciar() {
 		try {
@@ -55,44 +49,40 @@ public class NotaFiscalDeliveryController implements Initializable, Controller{
 			scene.getStylesheets().add(Main.class.getResource("/view/application.css").toExternalForm());
 			stage.setScene(scene);
 			stage.setTitle("Nota Fiscal");
-	        stage.show();
-		}
-		catch(Exception e) {
+			stage.show();
+		} catch (Exception e) {
 			e.printStackTrace();
-		}	
-		
+		}
 	}
 
+	//Constr√≥i a Nota Fiscal Delivery
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		VendaDeliveryController.vendaDeliveryStage.close();
 		CompraDelivery c = VendaDeliveryController.compraAtualDelivery;
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");  
-        String strDate = dateFormat.format(c.getDataHoraRealizada());  
-        dataLabel.setText(strDate);
-        qtdLabel.setText(String.valueOf(c.getQuantidadeItens()));
-        totalLabel.setText(String.valueOf(c.getTotalCompra()));
-        FormaPagamento pagamento = c.getPagamento();
-        pagamentoLabel.setText(pagamento.getDescricao());
-        if(pagamento instanceof Dinheiro) {
-        	parcelasLabel.setText("… dinheiro.");
-        	trocoLabel.setText(String.valueOf(((Dinheiro) pagamento).getTroco()));
-        }
-        else {
-        	parcelasLabel.setText(String.valueOf(((Cartao)pagamento).getParcelas()));
-        	trocoLabel.setText("N„o tem troco.");
-        }
-        clienteLabel.setText(c.getCliente().getNome());
-        atendenteLabel.setText(c.getMotoboy().getNome());
-        enderecoLabel.setText(((ClienteDelivery)c.getCliente()).getEndereco());
-        dataHoraLabel.setText(c.getDataHoraEntrega());
-		
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		String strDate = dateFormat.format(c.getDataHoraRealizada());
+		dataLabel.setText(strDate);
+		qtdLabel.setText(String.valueOf(c.getQuantidadeItens()));
+		totalLabel.setText(String.valueOf(c.getTotalCompra()));
+		FormaPagamento pagamento = c.getPagamento();
+		pagamentoLabel.setText(pagamento.getDescricao());
+		if(pagamento instanceof Dinheiro) {
+			parcelasLabel.setText("√â dinheiro.");
+			trocoLabel.setText(String.valueOf(((Dinheiro) pagamento).getTroco()));
+		} else {
+			parcelasLabel.setText(String.valueOf(((Cartao) pagamento).getParcelas()));
+			trocoLabel.setText("N√£o tem troco.");
+		}
+		clienteLabel.setText(c.getCliente().getNome());
+		atendenteLabel.setText(c.getMotoboy().getNome());
+		enderecoLabel.setText(((ClienteDelivery)c.getCliente()).getEndereco());
+		dataHoraLabel.setText(c.getDataHoraEntrega());
 	}
 
 	@Override
 	public void concluir() {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

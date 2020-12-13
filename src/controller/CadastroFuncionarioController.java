@@ -1,9 +1,5 @@
 package controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -12,18 +8,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.CaixaLocal;
 import model.Gerente;
 import model.Motoboy;
 import model.Supervisor;
 
-public class CadastroFuncionarioController implements Initializable, Controller{
-	
-	//Definindo TextFields do Cadastro
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class CadastroFuncionarioController implements Initializable, Controller {
+
+    //Definindo TextFields do Cadastro
     @FXML
     private TextField nomeText;
     @FXML
@@ -40,75 +39,75 @@ public class CadastroFuncionarioController implements Initializable, Controller{
     private TextField horsText;
     @FXML
     private TextField placaText;
-    
-  //Definindo ChoiceBox
+
+    //Definindo ChoiceBox
     @FXML
     private ChoiceBox<String> tipoFun;
-    
 
-	@Override
-	public void concluir() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Aviso!");
-		alert.setHeaderText(null);
-		alert.setContentText("Funcion�rio cadastrado com sucesso!");
-		try {
-			if(FuncionarioController.buscarCPF(cpfText.getText())==null) {
-				//Adiciona funcion�rio a depender do cargo
-				String tipo = tipoFun.getSelectionModel().getSelectedItem();
-				if(tipo.equals("Motoboy")) {
-					if(placaText.getText().equals("")) {
-						alert.setContentText("Placa inv�lida!");
-					}
-					else {
-						Motoboy motoboy = new Motoboy(nomeText.getText(),cpfText.getText(),Integer.parseInt(idadeText.getText()),Double.parseDouble(salText.getText()),idText.getText(),horcText.getText(),horsText.getText(),placaText.getText());
-						FuncionarioController.listaFuncionariosGeral.add(motoboy);
-					}
-				}
-				else if(tipo.equals("Caixa")) {
-					CaixaLocal caixa = new CaixaLocal(nomeText.getText(),cpfText.getText(),Integer.parseInt(idadeText.getText()),Double.parseDouble(salText.getText()),idText.getText(),horcText.getText(),horsText.getText(),0);
-					FuncionarioController.listaFuncionariosGeral.add(caixa);
-				}
-				else if(tipo.equals("Supervisor")) {
-					Supervisor supervisor = new Supervisor(nomeText.getText(),cpfText.getText(),Integer.parseInt(idadeText.getText()),Double.parseDouble(salText.getText()),idText.getText(),horcText.getText(),horsText.getText());
-					FuncionarioController.listaFuncionariosGeral.add(supervisor);
-				}
-				else if(tipo.equals("Gerente")){
-					Gerente gerente = new Gerente(nomeText.getText(),cpfText.getText(),Integer.parseInt(idadeText.getText()),Double.parseDouble(salText.getText()),idText.getText(),horcText.getText(),horsText.getText());
-					FuncionarioController.listaFuncionariosGeral.add(gerente);
-				}
-			}
-			else {
-				alert.setContentText("CPF j� cadastrado!");
-			}
-			alert.showAndWait();
-		}
-		catch (Exception e) {
-			alert.setContentText("Algum valor inv�lido!");
-			alert.showAndWait();
-		}
-	}
+    //Validação dos dados e cadastramento de funcionário
+    @Override
+    public void concluir() {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Aviso!");
+        alert.setHeaderText(null);
+        alert.setContentText("Funcionário cadastrado com sucesso!");
+        try {
+            if (FuncionarioController.buscarCPF(cpfText.getText()) == null) {
+                //Adiciona funcionário a depender do cargo
+                String tipo = tipoFun.getSelectionModel().getSelectedItem();
+                if (tipo.equals("Motoboy")) {
+                    if (placaText.getText().equals("")) {
+                        alert.setContentText("Placa inválida!");
+                    } else {
+                        Motoboy motoboy = new Motoboy(nomeText.getText(), cpfText.getText(), Integer.parseInt(idadeText.getText()),
+                                Double.parseDouble(salText.getText()), idText.getText(), horcText.getText(), horsText.getText(),
+                                placaText.getText());
+                        FuncionarioController.listaFuncionariosGeral.add(motoboy);
+                    }
+                } else if (tipo.equals("Caixa")) {
+                    CaixaLocal caixa = new CaixaLocal(nomeText.getText(), cpfText.getText(), Integer.parseInt(idadeText.getText()),
+                            Double.parseDouble(salText.getText()), idText.getText(), horcText.getText(),
+                            horsText.getText(), 0);
+                    FuncionarioController.listaFuncionariosGeral.add(caixa);
+                } else if (tipo.equals("Supervisor")) {
+                    Supervisor supervisor = new Supervisor(nomeText.getText(), cpfText.getText(), Integer.parseInt(idadeText.getText()),
+							Double.parseDouble(salText.getText()), idText.getText(), horcText.getText(), horsText.getText());
+                    FuncionarioController.listaFuncionariosGeral.add(supervisor);
+                } else if (tipo.equals("Gerente")) {
+                    Gerente gerente = new Gerente(nomeText.getText(), cpfText.getText(), Integer.parseInt(idadeText.getText()),
+							Double.parseDouble(salText.getText()), idText.getText(), horcText.getText(), horsText.getText());
+                    FuncionarioController.listaFuncionariosGeral.add(gerente);
+                }
+            } else {
+                alert.setContentText("CPF já cadastrado!");
+            }
+            alert.showAndWait();
+        } catch (Exception e) {
+            alert.setContentText("Algum valor inválido!");
+            alert.showAndWait();
+        }
+    }
 
-	@Override
-	public void iniciar() {
-		 try {
-				Stage menuStage = new Stage();
-				Parent root = FXMLLoader.load(Main.class.getResource("/view/CadastroFuncionario.fxml"));
-				Scene scene = new Scene(root);
-				scene.getStylesheets().add(Main.class.getResource("/view/application.css").toExternalForm());
-				menuStage.setScene(scene);
-				menuStage.show();
-				menuStage.setTitle("Cadastro Funcion�rio");
-			} 
-			catch(Exception e) {
-				e.printStackTrace();
-			}	
-	}
+    // Inicia módulo de cadastrar um funcionário novo
+    @Override
+    public void iniciar() {
+        try {
+            Stage menuStage = new Stage();
+            Parent root = FXMLLoader.load(Main.class.getResource("/view/CadastroFuncionario.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Main.class.getResource("/view/application.css").toExternalForm());
+            menuStage.setScene(scene);
+            menuStage.show();
+            menuStage.setTitle("Cadastro Funcionário");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-        tipoFun.setItems(FXCollections.observableArrayList("Motoboy", "Gerente","Caixa","Supervisor"));
-		
-	}
+    //Define uma ChoiceBox com os tipos de funcionários existentes na aplicação
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        tipoFun.setItems(FXCollections.observableArrayList("Motoboy", "Gerente", "Caixa", "Supervisor"));
+    }
 
 }
